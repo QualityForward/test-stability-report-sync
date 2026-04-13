@@ -4,7 +4,7 @@ const { getFileLoader } = require("./load_file_factory");
 const { getTestResultFormatter } = require("./test_result_formatter_factory");
 const { validateFileFormat } = require("./file_validation");
 const { linkAutomatedTestStabilityReport } = require("./api_client");
-const { getInputFiles } = require("../src/get_input_files");
+const { getInputFiles } = require("./get_input_files");
 
 async function linkTestResults(
   inputFilePath,
@@ -12,7 +12,7 @@ async function linkTestResults(
   autoTestSuiteKey,
   autoTestCycleName,
   autoExecutionDeviceName,
-  apiKey
+  apiKey,
 ) {
   validateFileFormat(inputFilePath, testFramework);
   const inputFilePaths = await getInputFiles(inputFilePath);
@@ -22,7 +22,7 @@ async function linkTestResults(
     for (const filePath of inputFilePaths) {
       const fileProcessor = getFileLoader(
         path.extname(filePath),
-        getTestResultFormatter(testFramework)
+        getTestResultFormatter(testFramework),
       );
 
       const data = await readFileAsync(filePath);
@@ -35,14 +35,14 @@ async function linkTestResults(
       apiKey,
       autoTestSuiteKey,
       autoTestCycleName,
-      autoExecutionDeviceName
+      autoExecutionDeviceName,
     );
     console.log(
-      "The integration of automated test results has been completed."
+      "The integration of automated test results has been completed.",
     );
   } catch (error) {
     throw new Error(
-      `The integration of automated test results has failed: ${error.message}`
+      `The integration of automated test results has failed: ${error.message}`,
     );
   }
 }
@@ -64,7 +64,7 @@ async function processFormattedDataList(
   apiKey,
   autoTestSuiteKey,
   autoTestCycleName,
-  autoExecutionDeviceName
+  autoExecutionDeviceName,
 ) {
   for (const formattedData of formattedList) {
     await linkAutomatedTestStabilityReport(
@@ -72,7 +72,7 @@ async function processFormattedDataList(
       apiKey,
       autoTestSuiteKey,
       autoTestCycleName,
-      autoExecutionDeviceName
+      autoExecutionDeviceName,
     );
   }
 }
