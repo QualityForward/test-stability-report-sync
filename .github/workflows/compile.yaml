@@ -19,11 +19,10 @@ jobs:
           cache: npm
       - name: Install package
         run: |
-          npm install
-          npm install -g @vercel/ncc
+          npm ci
       - name: Compile
         run: |
-          ncc build src/main.js
+          npm run build
       - name: Commit and push updated file
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}

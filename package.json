@@ -4,6 +4,7 @@
   "description": "This action syncs automated test results into the QualityForward Automated Test Stability Report.",
   "main": "index.js",
   "scripts": {
+    "build": "esbuild src/main.js --bundle --platform=node --target=node20 --format=cjs --conditions=import --outfile=dist/index.js",
     "test": "jest",
     "lint-test": "eslint --plugin eslint-plugin-jest --ignore-pattern 'dist/' --ignore-pattern 'src/' tests/",
     "lint": "eslint --ignore-pattern 'dist/' --ignore-pattern 'tests/' ."
@@ -19,6 +20,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.10.0",
+    "esbuild": "^0.25.0",
     "eslint": "^9.10.0",
     "eslint-plugin-jest": "^28.8.3",
     "globals": "^15.9.0",
